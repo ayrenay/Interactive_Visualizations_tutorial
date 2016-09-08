@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Page Template</title>
+		<script type="text/javascript" src="d3.js"></script>
+		
+		<style>
+			text {
+			font-family: sans-serif;
+			font-size: 11px;
+			fill: white;
+			text-anchor: middle;
+			}
+		</style>
+		
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			var dataset = [];
+			
+			for (var i = 0; i < 15; i++) {
+				dataset.push(Math.floor(Math.random()*31));
+			} // this loop adds 25 numbers that are between 0 & 30
+			
+			var w = 700;
+			var h = 300;
+			var barPadding = 5;
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h)
+						;
+			
+			svg.selectAll("rect")
+			   .data(dataset)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d,i){
+						return i* (w / dataset.length);
+					})
+			   .attr("y", function(d){
+						return h - (d*4);
+					})
+			   .attr("width", w / dataset.length - barPadding)
+			   .attr("height", function(d){
+						return d * 4	;
+					})
+			   .attr("fill",function(d){return "rgb(104,175," + d*10 + ")";})
+				   .attr("stroke","rgb(104,175,151)")
+				   .attr("stroke-width", 1)
+			   ;
+			
+			svg.selectAll("text")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d){
+						return d;
+					})
+			   .attr("x", function(d,i){
+						return i* (w / dataset.length) + (w / dataset.length - barPadding)/2;
+					})
+			   .attr("y", function(d){
+						return h - (d*4) + 14;
+					})
+			;
+		</script>
+	</body>	
+</html>

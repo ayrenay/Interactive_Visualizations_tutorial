@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Page Template</title>
+		<script type="text/javascript" src="d3.js"></script>
+		
+		<style>
+			text {
+			font-family: sans-serif;
+			font-size: 11px;
+			fill: purple;
+			}
+		</style>
+		
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			
+			var dataset = [];
+			
+			for (var i = 0; i < 15; i++) {
+				dataset.push([]);
+				
+				for (var b = 0; b < 2; b++) {
+					dataset[i].push(Math.floor(Math.random()*450));
+				}
+			} 
+			var w = 500;
+			var h = 500;
+			
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h)
+						;
+			
+			svg.selectAll("circle")
+			   .data(dataset)
+			   .enter()
+			   .append("circle")
+			   .attr("cx", function(d) {return d[0];})
+			   .attr("cy", function(d) {return d[1];})
+			   .attr("r", 5)
+			   .attr("fill", "pink")
+			   ;
+			   
+			svg.selectAll("text")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d){
+						return d[0] + "," + d[1];
+					})
+			   .attr("x", function(d){
+						return d[0];
+					})
+			   .attr("y", function(d){
+						return d[1];
+					})
+			;
+			
+		</script>
+	</body>	
+</html>
